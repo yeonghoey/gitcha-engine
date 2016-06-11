@@ -5,9 +5,9 @@
   "engineFactory": "me.yeonghoey.RecommendationEngine",
   "datasource": {
     "params" : {
-      "name": "sample-handmade-data.txt",
-      "appName": "handmade",
-      "eventNames": ["purchase", "view"]
+      "name": "gitcha",
+      "appName": "gitcha",
+      "eventNames": ["star"]
     }
   },
   "sparkConf": {
@@ -15,19 +15,21 @@
     "spark.kryo.registrator": "org.apache.mahout.sparkbindings.io.MahoutKryoRegistrator",
     "spark.kryo.referenceTracking": "false",
     "spark.kryoserializer.buffer": "300m",
-    "spark.executor.memory": "4g",
-    "es.index.auto.create": "true"
+    "spark.executor.memory": <as much as possible>,
+    "spark.default.parallelism": <spark-cluster-core> * 2,
+    "es.index.auto.create": "true",
+    "es.nodes": <your private-dns>
   },
   "algorithms": [
     {
       "comment": "simplest setup where all values are default, popularity based backfill, must add eventsNames",
       "name": "ur",
       "params": {
-        "appName": "handmade",
+        "appName": "gitcha",
         "indexName": "urindex",
         "typeName": "items",
         "comment": "must have data for the first event or the model will not build, other events are optional",
-        "eventNames": ["purchase", "view"]
+        "eventNames": ["star"]
       }
     }
   ]
